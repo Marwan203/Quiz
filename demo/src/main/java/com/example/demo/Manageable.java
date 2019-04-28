@@ -5,5 +5,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface Manageable extends CrudRepository<Quiz,Long>{
-
 }
