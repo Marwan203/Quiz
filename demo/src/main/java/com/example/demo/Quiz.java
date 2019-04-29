@@ -1,10 +1,10 @@
 package com.example.demo;
 
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.persistence.*;
+import javax.swing.JOptionPane;
 
 
 @Entity
@@ -26,42 +26,52 @@ public class Quiz implements Quizable {
     }
     public void makeQuiz(){
         DataAccess Data = new DataAccess();
-        Scanner input = new Scanner (System.in);
-        System.out.println("Enter The Quiz Title");
-        this.QuizTitle = input.nextLine();
-        System.out.println("Enter The Quiz Duration");
-        this.QuizDuration = input.nextDouble();
-        input.nextLine();
-        System.out.println("Enter The Quiz skill type");
-        this.SkillType = input.nextLine();
-        System.out.println("Enter The Quiz Pass Score");
-        this.QuizPassScore = input.nextInt();
-        input.nextLine();
-        System.out.println("Enter The Number of Questions ");
-        this.NumberOfQuestions = input.nextInt();
-        input.nextLine();
+        String temp = new String();
+        //Scanner input = new Scanner (System.in);
+        //System.out.println("Enter The Quiz Title");
+        this.QuizTitle = JOptionPane.showInputDialog("Enter The Quiz Title");//input.nextLine();
+        //System.out.println("Enter The Quiz Duration");
+        temp = JOptionPane.showInputDialog("Enter The Quiz Duration");//input.nextDouble();
+        this.QuizDuration = Double.parseDouble(temp);
+        //input.nextLine();
+        //System.out.println("Enter The Quiz skill type");
+        this.SkillType =JOptionPane.showInputDialog("Enter The Quiz skill type");
+
+        //System.out.println("Enter The Quiz Pass Score");
+        temp = JOptionPane.showInputDialog("Enter The Quiz Pass Score");
+        this.QuizPassScore = Integer.parseInt(temp);//input.nextInt();
+        //input.nextLine();
+        //System.out.println("Enter The Number of Questions ");
+        temp = JOptionPane.showInputDialog("Enter The Number of Questions");
+        this.NumberOfQuestions = Integer.parseInt(temp);//input.nextInt();
+        //input.nextLine();
         Data.insert_A_Quiz(this);
         Data.getQuizId();
         for (int Counter = 1 ; Counter<=NumberOfQuestions ; Counter++){
             Question Q = new Question();
-            System.out.println("Enter The Question " + Counter +" Content");
-            Q.setQuestionContent(input.nextLine());
-            System.out.println("Enter The Question " + Counter +" Correct Choice");
-            Q.setCorrectChoice(input.nextLine());
-            System.out.println("Enter The Question " + Counter +" Number OF Choices");
-            Q.setNumber_Of_Choices(input.nextInt());
-            input.nextLine();
+            //System.out.println("Enter The Question " + Counter +" Content");
+            Q.setQuestionContent(JOptionPane.showInputDialog("Enter The Question " + Counter +" Content"));//(input.nextLine());
+            //System.out.println("Enter The Question " + Counter +" Correct Choice");
+
+            Q.setCorrectChoice(JOptionPane.showInputDialog("Enter The Question " + Counter +" Correct Choice"));//(input.nextLine());
+            //System.out.println("Enter The Question " + Counter +" Number OF Choices");
+            temp = JOptionPane.showInputDialog("Enter The Question " + Counter +" Number OF Choices");
+            Q.setNumber_Of_Choices(Integer.parseInt(temp));//(input.nextInt());
+            //input.nextLine();
             Data.insert_A_Question(Q);
             Data.getQuestionId();
             for (int counter = 1 ; counter<=Q.getNumber_Of_Choices();counter++){
                 Choice cho = new Choice();
-                System.out.println("Enter The ChoiceContent");
-                cho.setChoiceContent(input.nextLine());
+                //System.out.println("Enter The ChoiceContent");
+                cho.setChoiceContent(JOptionPane.showInputDialog("Enter The ChoiceContent"));//(input.nextLine());
                 Q.getChoices().add(cho);
                 Data.insert_A_Choice(cho);
+                JOptionPane.showMessageDialog(null,"Choice is Added Successfully");
             }
             Questions.add(Q);
+            JOptionPane.showMessageDialog(null,"Question Added Successfully");
         }
+        JOptionPane.showMessageDialog(null,"The Quiz Is Added Successfully");
     }
 
 
@@ -70,9 +80,9 @@ public class Quiz implements Quizable {
         Scanner input = new Scanner(System.in);
         String entered = new String();
         for(int Counter = 0 ; Counter<this.Questions.size();Counter++){
-            System.out.println("Enter Your Choice For Question Number "+ (Counter+1));
-            entered = input.nextLine();
-            PersonChoices.add(entered);
+            //System.out.println("Enter Your Choice For Question Number "+ (Counter+1));
+            //entered = input.nextLine();
+            PersonChoices.add(JOptionPane.showInputDialog("Enter Your Choice For Question Number "+ (Counter+1)));//(entered);
         }
     }
 
