@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 @SpringBootApplication
 public class DemoApplication {
+    static {
+        System.setProperty("java.awt.headless", "false");
+        /* java.awt.GraphicsEnvironment.isHeadless() returns false */
+    }
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
         ArrayList<Quiz> Quizzes = new ArrayList();
